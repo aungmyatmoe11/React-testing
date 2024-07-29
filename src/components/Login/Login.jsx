@@ -1,5 +1,5 @@
-import axios from "axios"
 import React, { useState } from "react"
+import axios from "axios"
 
 const Login = () => {
   const [error, setError] = useState(false)
@@ -7,9 +7,9 @@ const Login = () => {
   const [password, setPassword] = useState("")
 
   const [loading, setLoading] = useState(false)
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState(null)
 
-  const handleClick = async (e) => {
+  const handleClick = async (e ) => {
     e.preventDefault()
 
     setLoading(true)
@@ -25,10 +25,15 @@ const Login = () => {
   }
   return (
     <div>
-      <span>{user?.firstname}</span>
+      {
+        user ? (
+          <span>{user?.firstname}</span>
+        ) : (<></>)
+      }
       <form>
         <input
           type="text"
+          aria-label="text"
           placeholder="username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -39,7 +44,7 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button disabled={!username || !password} onClick={handleClick}>
+        <button type="submit" disabled={!username || !password} onClick={handleClick}>
           {loading ? "loading..." : "Login"}
         </button>
         <span
